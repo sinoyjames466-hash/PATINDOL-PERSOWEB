@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behold | Personal Blog</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #b5b5b5;
+    color: #292929;
+    font-family: Arial, sans-serif;
+}
+
+.browser {
+    width: 94%;
+    max-width: 1450px;
+    margin: 25px auto;
+    background: #f5f2ed;
+    box-shadow: 0 10px 35px #0002;
+}
+
+.browser-bar {
+    height: 38px;
+    background: #eeeeec;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    gap: 7px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #d89b98;
+}
+
+.dot:nth-child(2) {
+    background: #e3c77e;
+}
+
+.dot:nth-child(3) {
+    background: #91b995;
+}
+
+.address {
+    margin: auto;
+    font-size: 11px;
+    color: #888;
+    background: #e5e4e1;
+    padding: 5px 45px;
+    border-radius: 4px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+}
+
+.feature {
+    min-height: 850px;
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
+
+.feature-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    inset: 0;
+    filter: saturate(.65);
+}
+
+.feature::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.10) 40%,
+        rgba(0,0,0,.68)
+    );
+}
+
+.feature-inner {
+    position: relative;
+    z-index: 2;
+    min-height: 850px;
+    display: flex;
+    flex-direction: column;
+    padding: 35px 6%;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid #ffffff60;
+    padding-bottom: 20px;
+}
+
+.logo {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.feature-copy {
+    margin-top: auto;
+    padding: 30px 0 40px;
+    max-width: 440px;
+}
+
+.date {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.feature-copy h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: normal;
+    line-height: 1.03;
+    margin: 20px 0;
+}
+
+.feature-copy p {
+    font-size: 13px;
+    line-height: 1.9;
+    color: #eee;
+    max-width: 370px;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ffffff60;
+    padding-top: 18px;
+}
+
+.controls button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #ffffffaa;
+    color: white;
+    font-size: 9px;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background: white;
+    color: #222;
+}
+
+.counter {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.content {
+    padding: 35px 7%;
+    background: #f5f2ed;
+}
+
+.author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd7d0;
+    padding-bottom: 20px;
+    font-size: 12px;
+    color: #777;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.menu {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.intro {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.dropcap {
+    font-family: Georgia, serif;
+    font-size: 48px;
+}
+
+.intro p,
+.article p {
+    color: #77716c;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.quote {
+    border-left: 2px solid #c7b3a2;
+    padding: 8px 0 8px 20px;
+    margin: 35px 0;
+    font-family: Georgia, serif;
+    font-size: 28px;
+    line-height: 1.35;
+    font-style: italic;
+}
+
+.article p {
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-weight: normal;
+    margin: 35px 0 20px;
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.post {
+    background: white;
+    padding: 9px 9px 18px;
+    border: 1px solid #e8e2dc;
+}
+
+.post img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.post small {
+    display: block;
+    margin: 15px 3px 8px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #999;
+    text-transform: uppercase;
+}
+
+.post h3 {
+    font-family: Georgia, serif;
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: normal;
+    margin: 0 3px;
+}
+
+.newsletter {
+    background: #e9e4dd;
+    padding: 25px;
+    margin-top: 35px;
+}
+
+.newsletter h2 {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.newsletter p {
+    color: #777;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-top: 10px;
+}
+
+.subscribe {
+    display: flex;
+    border-bottom: 1px solid #888;
+    margin-top: 20px;
+}
+
+.subscribe input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 12px 0;
+}
+
+.subscribe button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 10px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.footer {
+    border-top: 1px solid #ddd7d0;
+    padding-top: 20px;
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #888;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+/* Large white words like the reference image */
+.hero-words {
+    position: absolute;
+    z-index: 5;
+    top: 15px;
+    right: -8px;
+    width: 68%;
+    text-align: right;
+    color: rgb(255, 255, 255);
+    font-family: Impact, "Arial Narrow", sans-serif;
+    font-size: clamp(60px, 10.5vw, 145px);
+    font-weight: 900;
+    line-height: .84;
+    letter-spacing: -3px;
+    pointer-events: none;
+}
+
+.hero-words span {
+    display: block;
+}
+
+.hero-words span:nth-child(2) {
+    margin-right: 2%;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(40, 40, 40, 0.27);
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Responsive layout */
+@media (max-width: 850px) {
+    .browser {
+        width: 96%;
+        margin: 12px auto;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .feature,
+    .feature-inner {
+        min-height: 700px;
+    }
+
+    .hero-words {
+        width: 100%;
+        top: 65px;
+        right: 5px;
+        font-size: clamp(65px, 13vw, 105px);
+    }
+
+    .content {
+        padding: 30px 6%;
+    }
+}
+
+@media (max-width: 480px) {
+    .browser {
+        width: 100%;
+        margin: 0;
+    }
+
+    .feature,
+    .feature-inner {
+        min-height: 650px;
+    }
+
+    .feature-inner {
+        padding: 22px 5%;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 8px;
+        letter-spacing: .5px;
+    }
+
+    .nav-links a:nth-child(2),
+    .nav-links a:nth-child(3) {
+        display: none;
+    }
+
+    .hero-words {
+        font-size: clamp(52px, 14vw, 70px);
+        letter-spacing: -1px;
+        top: 75px;
+    }
+
+    .feature-copy h1 {
+        font-size: 38px;
+    }
+
+    .post img {
+        height: 100px;
+    }
+
+    .post h3 {
+        font-size: 17px;
+    }
+
+    .quote {
+        font-size: 23px;
+    }
+
+    .footer {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="browser">
+
+    <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <div class="address">✦ behold.personalblog.com</div>
+    </div>
+
+    <div class="layout">
+
+        <!-- LEFT FEATURED BLOG -->
+        <section class="feature" id="home">
+
+            <img
+                class="feature-image"
+                id="featureImage"
+                src="pic1.jpg"
+                alt="Featured portrait"
+            >
+
+            <div class="feature-inner">
+
+                <header class="navbar">
+                    <a href="#home" class="logo">Behold</a>
+
+                    <nav class="nav-links">
+                        <a href="#home">Home</a>
+                        <a href="#journal">Pages</a>
+                        <a href="#stories">Posts</a>
+                        <a href="#subscribe">Shop</a>
+                    </nav>
+                </header>
+
+                <div class="feature-copy">
+                    <div class="date" id="featureDate">
+                        JULY 07, 2008
+                    </div>
+
+                    <h1 id="featureTitle">
+                        MAVE JEAN PATINDOL
+                    </h1>
+
+                    <p id="featureDescription">
+                        A little corner of
+                        slow mornings,
+                        new places, and the beautiful ordinary things
+                        I never want to forget.
+                    </p>
+
+                    <a href="#journal" class="read-more">
+                        EXPLORE MY FAVORITE PICTURE ↗
+                    </a>
+                </div>
+
+                <div class="controls">
+                    <button id="prevBtn">PREV</button>
+                    <span class="counter" id="counter">01 — 03</span>
+                    <button id="nextBtn">NEXT</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RIGHT BLOG CONTENT -->
+        <section class="content" id="journal">
+
+            <div class="author">
+                <div class="author-info">
+                    <img
+                        class="avatar"
+                        src="pic3.png"
+                        alt="Author"
+                    >
+                    <span>My Personal Webpage</span>
+                </div>
+
+                <span class="menu" id="menuBtn">☰</span>
+            </div>
+
+            <div class="intro">
+                <div class="dropcap">L</div>
+
+                <p>
+                    Life moves quickly, so this is where I pause for
+                    a moment. A collection of places I've wandered,
+                    things I've experienced, people I've loved, and small
+                    details that make an ordinary day feel special.
+                </p>
+            </div>
+
+            <blockquote class="quote">
+                “There is beauty in the things we almost Forget.”
+            </blockquote>
+
+            <div class="article">
+                <p>
+                    Some days are made for going somewhere new.
+                    Other days are best spent at home,
+                    an open window, and absolutely nowhere
+                    else to be. I'm learning to make room for both.
+                </p>
+
+                <p>
+                    This journal is a scrapbook of those moments.
+                    Not every story needs a grand adventure.
+                    Sometimes the best memories are the quiet ones
+                    that find us when we least expect them.
+                </p>
+            </div>
+
+            <h2 class="section-title" id="stories">Recent LIFE Stories</h2>
+
+            <div class="post-grid">
+
+                <article class="post">
+                    <img
+                        src="pic2.jpg"
+                        alt="Beautiful sunrise"
+                    >
+
+                    <small>Happy Living · </small>
+
+                    <h3>Give them a happy moments</h3>
+                </article>
+
+                <article class="post">
+                    <img
+                        src="pic4.jpg"
+                        alt="Peaceful landscape"
+                    >
+
+                    <small>Perfect parent smile
+                        
+                    </small>
+
+                    <h3>the Day that only our MAMA and PAPA</h3>
+                </article>
+
+            </div>
+
+            <section class="newsletter" id="subscribe">
+                <h2>A letter from me to you.</h2>
+
+                <p>
+                    Recent stories, and little things
+                    worth sharing. No noise, just a happy family.
+                </p>
+
+                <form class="subscribe" id="subscribeForm">
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Your email address"
+                        required
+                    >
+
+                    <button type="submit">SUBSCRIBE ↗</button>
+                </form>
+
+                <p id="message"></p>
+            </section>
+
+            <footer class="footer">
+                <span>MY PERSONAL BLOG</span>
+                <span>MADE WITH EFFORT</span>
+            </footer>
+
+        </section>
+
+        <!-- LARGE TEXT OVERLAY -->
+        <div class="overlay"></div>
+
+        <div class="hero-words">
+            <span>BEST</span>
+            <span>PERSONAL</span>
+            <span>BLOG</span>
+            <span>WEB</span>
+            <span>PAGE</span>
+        </div>
+
+    </div>
+</main>
+
+<script>
+const posts = [
+    {
+        date: "JULY 07, 2008",
+        title: "MAVE JEAN PATINDOL",
+        description:
+            "A little corner of the internet for slow mornings, new places, and the beautiful ordinary things I never want to forget.",
+        image:
+            "pic5.jpg"
+    },
+    {
+        date: "JULY 07,2008",
+        title: "MAVE JEAN PATINDOL",
+        description:
+            "Some places become part of our story. a long walk, and a view I still think about.",
+        image:
+            "pic6.jpg"
+    },
+    {
+        date: "JULY 07, 2008",
+        title: "MAVE JEAN PATINDOL",
+        description:
+            "Finding more calm in everyday life, keeping memories close, and making time for what matters most.",
+        image:
+            "pic7.jpg"
+    }
+];
+
+let current = 0;
+
+const featureImage = document.getElementById("featureImage");
+const featureDate = document.getElementById("featureDate");
+const featureTitle = document.getElementById("featureTitle");
+const featureDescription =
+    document.getElementById("featureDescription");
+const counter = document.getElementById("counter");
+
+function showPost(index) {
+    current = (index + posts.length) % posts.length;
+
+    const post = posts[current];
+
+    featureImage.style.opacity = "0.3";
+
+    setTimeout(() => {
+        featureImage.src = post.image;
+        featureDate.textContent = post.date;
+        featureTitle.textContent = post.title;
+        featureDescription.textContent = post.description;
+
+        counter.textContent =
+            String(current + 1).padStart(2, "0") +
+            " — " +
+            String(posts.length).padStart(2, "0");
+
+        featureImage.style.opacity = "1";
+    }, 150);
+}
+
+featureImage.style.transition = "opacity .3s ease";
+
+document.getElementById("prevBtn").addEventListener("click", () => {
+    showPost(current - 1);
+});
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+    showPost(current + 1);
+});
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+    document.getElementById("stories").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+
+document.getElementById("subscribeForm").addEventListener(
+    "submit",
+    function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+
+        if (email) {
+            document.getElementById("message").textContent =
+                "Thank you for subscribing! This is a demo form.";
+        }
+    }
+);
+</script>
+
+</body>
+</html>
